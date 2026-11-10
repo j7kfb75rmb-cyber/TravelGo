@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
             'password' => 'admin12345',
             'role'     => 'admin',
         ])->save();
+
+        $this->call(TravelSeeder::class);
     }
 }
