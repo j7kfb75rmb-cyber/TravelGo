@@ -53,4 +53,14 @@ class Tour extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    // Свободные места = всего мест минус гости в неотменённых бронях
+    public function availableSeats(): int
+    {
+        $booked = (int) $this->bookings()
+            ->where('status', '!=', 'cancelled')
+            ->sum('guests');
+
+        return max(0, $this->seats - $booked);
+    }
 }
